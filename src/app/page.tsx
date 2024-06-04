@@ -1,15 +1,23 @@
 "use client"
 import { useState } from 'react';
-
-
-
-function Square({ value, onSquareClick }){
-  return <div className="flex justify-center items-center square" onClick={onSquareClick}>  {value}</div>
+type sq = {
+  value: null;
+   onSquareClick:()=> void;
 }
 
 
-function Board({ xIsNext, squares, onPlay }) {
-  function handleClick(i) {
+
+function Square({ value, onSquareClick }: sq){
+  return <div className="flex justify-center items-center square" onClick={onSquareClick}>  {value}</div>
+}
+
+type brd = {
+  xIsNext : boolean;
+ squares: any;
+  onPlay: any;
+}
+function Board({ xIsNext, squares, onPlay}:brd) {
+  function handleClick(i: any) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -19,7 +27,8 @@ function Board({ xIsNext, squares, onPlay }) {
     } else {
       nextSquares[i] = 'O';
     }
-    onPlay(nextSquares);
+    onPlay(nextSquares)
+    
   }
 
   const winner = calculateWinner(squares);
@@ -59,13 +68,14 @@ export default function Game() {
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
-  function handlePlay(nextSquares) {
+
+  function handlePlay(nextSquares:(()=> void)[]) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove) {
+  function jumpTo(nextMove: any) {
     setCurrentMove(nextMove);
   }
 
@@ -96,7 +106,7 @@ export default function Game() {
   );
 }
 
-function calculateWinner(squares) {
+function calculateWinner(squares: null[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
